@@ -56,12 +56,17 @@ export async function obtenerPaises() {
     }));
 }
 
-// Último valor disponible de un indicador para todos los países
+// Último valor disponible de un indicador para todos los países.
+// La API no admite "mrnev" en esta consulta, así que se pide un rango de años
+// y se conserva el año más reciente con dato no nulo de cada país.
 export async function obtenerUltimoValor(indicadorId) {
-  const datos = await peticion(`/country/all/indicator/${indicadorId}?mrnev=1&per_page=400`);
+  const datos = await peticion(`/country/all/indicator/${indicadorId}?date=2015:2025&per_page=3000`);
   const valores = new Map();
   datos.forEach((d) => {
-    if (d.value !== null) valores.set(d.countryiso3code, { valor: d.value, anio: Number(d.date) });
+    if (d.value === null) return;
+    const anio = Number(d.date);
+    const actual = valores.get(d.countryiso3code);
+    if (!actual || anio > actual.anio) valores.set(d.countryiso3code, { valor: d.value, anio });
   });
   return valores;
 }
