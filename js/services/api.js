@@ -20,8 +20,8 @@ function guardarCache(clave, datos) {
   }
 }
 
-// Petición genérica. La API devuelve [metadatos, datos]
-async function peticion(ruta) {
+// Petición genérica. La API devuelve [metadatos, datos]; devuelve el par completo
+async function peticionCompleta(ruta) {
   const url = `${API_BASE}${ruta}${ruta.includes('?') ? '&' : '?'}format=json`;
   const cache = leerCache(url);
   if (cache) return cache;
@@ -35,9 +35,14 @@ async function peticion(ruta) {
   if (!Array.isArray(json) || json[0]?.message) {
     throw new Error('La API devolvió una respuesta no válida');
   }
-  const datos = json[1] ?? [];
-  guardarCache(url, datos);
-  return datos;
+  guardarCache(url, json);
+  return json;
+}
+
+// Solo los datos de una petición
+async function peticion(ruta) {
+  const [, datos] = await peticionCompleta(ruta);
+  return datos ?? [];
 }
 
 // Países reales (se excluyen agregados como "Mundo" o "Zona euro")
@@ -59,8 +64,16 @@ export async function obtenerPaises() {
 // Último valor disponible de un indicador para todos los países.
 // La API no admite "mrnev" en esta consulta, así que se pide un rango de años
 // y se conserva el año más reciente con dato no nulo de cada país.
+// Se pide por páginas de 400: con páginas mayores la API no envía la cabecera CORS.
 export async function obtenerUltimoValor(indicadorId) {
-  const datos = await peticion(`/country/all/indicator/${indicadorId}?date=2015:2025&per_page=3000`);
+  const base = `/country/all/indicator/${indicadorId}?date=2015:2025&per_page=400`;
+  const [meta, primera] = await peticionCompleta(base + '&page=1');
+  const resto = await Promise.all(
+    Array.from({ length: (meta.pages ?? 1) - 1 }, (_, i) =>
+      peticion(`${base}&page=${i + 2}`)
+    )
+  );
+  const datos = [primera ?? [], ...resto].flat();
   const valores = new Map();
   datos.forEach((d) => {
     if (d.value === null) return;
