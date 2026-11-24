@@ -52,7 +52,7 @@ function pintarRanking() {
   const resumen = document.createElement('p');
   resumen.className = 'contador';
   resumen.textContent =
-    `Top ${ranking.length} por ${INDICADORES[clave].nombre.toLowerCase()} · ` +
+    `Top ${ranking.length} · ${INDICADORES[clave].nombre} · ` +
     `${paises.filter((p) => p.kpis[clave]).length} países con dato`;
 
   const lista = document.createElement('ol');
