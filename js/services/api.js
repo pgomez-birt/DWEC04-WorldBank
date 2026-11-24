@@ -23,7 +23,9 @@ function guardarCache(clave, datos) {
 // Petición genérica. La API devuelve [metadatos, datos]; devuelve el par completo
 async function peticionCompleta(ruta) {
   const url = `${API_BASE}${ruta}${ruta.includes('?') ? '&' : '?'}format=json`;
-  const cache = leerCache(url);
+  // Prefijo de versión: invalida las entradas guardadas con otro formato
+  const clave = `wb:v2:${url}`;
+  const cache = leerCache(clave);
   if (cache) return cache;
 
   const respuesta = await fetch(url);
@@ -35,7 +37,7 @@ async function peticionCompleta(ruta) {
   if (!Array.isArray(json) || json[0]?.message) {
     throw new Error('La API devolvió una respuesta no válida');
   }
-  guardarCache(url, json);
+  guardarCache(clave, json);
   return json;
 }
 
