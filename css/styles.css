@@ -129,6 +129,81 @@ h1 { margin: 0 0 4px; font-size: 1.75rem; }
   cursor: pointer;
 }
 
+/* Controles y ranking (día 2) */
+.controles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.controles label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: var(--color-suave);
+}
+.controles select {
+  min-width: 200px;
+  padding: 8px 10px;
+  border: 1px solid var(--color-borde);
+  border-radius: 8px;
+  background: var(--color-superficie);
+  font: inherit;
+  color: var(--color-texto);
+}
+.controles select:disabled { opacity: 0.6; }
+
+.ranking {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.ranking__fila {
+  padding: 14px 16px;
+  background: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+}
+.ranking__cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin-bottom: 10px;
+}
+.ranking__pos {
+  min-width: 2.2rem;
+  font-weight: 700;
+  color: var(--color-primario);
+}
+.ranking__nombre {
+  font-weight: 600;
+  font-size: 1.05rem;
+  text-decoration: none;
+}
+.ranking__nombre:hover { text-decoration: underline; }
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+.kpi {
+  padding: 8px 10px;
+  background: var(--color-fondo);
+  border-radius: 8px;
+}
+.kpi--activo {
+  outline: 2px solid var(--color-primario);
+}
+.kpi dt { font-size: 0.75rem; color: var(--color-suave); }
+.kpi dd { margin: 0; font-weight: 600; }
+
 .pie {
   padding: 16px;
   text-align: center;

@@ -20,6 +20,24 @@
   <main class="contenido">
     <h1>Ranking de países</h1>
     <p class="intro">Indicadores clave de los países del mundo según el Banco Mundial.</p>
+    <form class="controles" id="controles" onsubmit="return false">
+      <label>Ordenar por
+        <select id="indicador">
+          <option value="pibPerCapita" selected>PIB per cápita</option>
+          <option value="poblacion">Población</option>
+          <option value="esperanzaVida">Esperanza de vida</option>
+          <option value="crecimientoPib">Crecimiento del PIB</option>
+        </select>
+      </label>
+      <label>Mostrar
+        <select id="limite">
+          <option value="10">10 países</option>
+          <option value="20" selected>20 países</option>
+          <option value="50">50 países</option>
+          <option value="100">100 países</option>
+        </select>
+      </label>
+    </form>
     <section id="resumen" aria-live="polite"></section>
   </main>
 
