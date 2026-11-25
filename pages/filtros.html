@@ -18,13 +18,45 @@
 
   <main class="contenido">
     <h1>Buscar y filtrar países</h1>
-    <section id="filtros" aria-live="polite">
-      <p class="pendiente">Filtros por región, nivel de ingresos y nombre: en desarrollo (día 4).</p>
-    </section>
+    <p class="intro">Combina los filtros: los resultados se actualizan al instante.</p>
+
+    <form class="controles" id="form-filtros" onsubmit="return false" role="search">
+      <label>Buscar por nombre o capital
+        <input type="search" id="busqueda" placeholder="Ej.: Perú, Lima…" autocomplete="off" disabled>
+      </label>
+      <label>Región
+        <select id="region" disabled>
+          <option value="">Todas las regiones</option>
+        </select>
+      </label>
+      <label>Nivel de ingresos
+        <select id="ingresos" disabled>
+          <option value="">Todos los niveles</option>
+        </select>
+      </label>
+      <label>Esperanza de vida mínima: <output id="vida-valor">0 años</output>
+        <input type="range" id="vida" min="0" max="85" step="5" value="0" disabled>
+      </label>
+      <label>Ordenar por
+        <select id="orden" disabled>
+          <option value="nombre">Nombre (A-Z)</option>
+          <option value="pibPerCapita">PIB per cápita</option>
+          <option value="poblacion">Población</option>
+          <option value="esperanzaVida">Esperanza de vida</option>
+          <option value="crecimientoPib">Crecimiento del PIB</option>
+        </select>
+      </label>
+      <button type="button" id="limpiar" class="boton boton--secundario" disabled>Limpiar filtros</button>
+    </form>
+
+    <p id="contador" class="contador" aria-live="polite"></p>
+    <section id="resultados"></section>
   </main>
 
   <footer class="pie">
     Datos: <a href="https://data.worldbank.org/" target="_blank" rel="noopener">World Bank Open Data</a>
   </footer>
+
+  <script type="module" src="../js/pages/filtros.js"></script>
 </body>
 </html>

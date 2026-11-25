@@ -6,7 +6,7 @@ import { formatearValor, formatearCambio } from '../utils/formato.js';
 import { resumirSerie } from '../utils/estadisticas.js';
 
 const ANIO_MIN = 1990;
-const ANIO_MAX = 2024;
+const ANIO_MAX = 2025;
 const MAX_COMPARAR = 3;
 const COLORES = ['#0b6e99', '#d9480f', '#2b8a3e', '#7048e8'];
 

@@ -25,10 +25,10 @@ Entrega: **viernes 27/11/2026, 23:59** (Aula Virtual, un único PDF).
 - [x] Estado de la vista guardado en la URL (enlace compartible)
 
 ## Día 4 — Jueves 26/11: Ejercicio 3 (Filtros) + diseño
-- [ ] Filtros: región, nivel de ingresos y búsqueda por nombre
-- [ ] Resultados actualizados al cambiar cualquier filtro, con contador
-- [ ] Repaso del diseño visual y versión móvil
-- [ ] Revisar arquitectura y limpiar código
+- [x] Filtros: búsqueda por nombre o capital (sin tildes), región, nivel de ingresos y esperanza de vida mínima
+- [x] Resultados actualizados al cambiar cualquier filtro, con contador y ordenación
+- [x] Repaso del diseño visual y versión móvil
+- [x] Revisar arquitectura y limpiar código (servicio `paises.js`, componente `kpis.js`)
 
 ## Día 5 — Viernes 27/11: documentación y entrega
 - [ ] Vídeo-demo (≤ 3 min, pantalla + webcam) en YouTube/Drive

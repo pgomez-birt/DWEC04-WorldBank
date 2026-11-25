@@ -1,8 +1,8 @@
 // Controlador de la página Resumen (index.html): ranking de países con KPIs
 import { INDICADORES } from '../config.js';
-import { obtenerPaises, obtenerUltimoValor } from '../services/api.js';
+import { obtenerPaisesConKpis } from '../services/paises.js';
 import { mostrarCarga, mostrarError } from '../ui/estado.js';
-import { formatearValor } from '../utils/formato.js';
+import { crearKpis } from '../ui/kpis.js';
 
 const contenedor = document.querySelector('#resumen');
 const selectIndicador = document.querySelector('#indicador');
@@ -16,20 +16,7 @@ async function cargar() {
   selectLimite.disabled = true;
   mostrarCarga(contenedor, 'Cargando países…');
   try {
-    const [listaPaises, ...valoresPorIndicador] = await Promise.all([
-      obtenerPaises(),
-      ...Object.values(INDICADORES).map((ind) => obtenerUltimoValor(ind.id)),
-    ]);
-
-    // Cruza cada país con el último valor de cada indicador
-    const claves = Object.keys(INDICADORES);
-    paises = listaPaises.map((pais) => {
-      const kpis = {};
-      claves.forEach((clave, i) => {
-        kpis[clave] = valoresPorIndicador[i].get(pais.codigo) ?? null;
-      });
-      return { ...pais, kpis };
-    });
+    paises = await obtenerPaisesConKpis();
 
     selectIndicador.disabled = false;
     selectLimite.disabled = false;
@@ -74,7 +61,8 @@ function crearFila(pais, posicion, claveOrden) {
   pos.textContent = posicion;
 
   const enlace = document.createElement('a');
-  enlace.href = `pages/detalle.html?pais=${pais.codigo}`;
+  // Abre el detalle con el mismo indicador por el que se está ordenando
+  enlace.href = `pages/detalle.html?pais=${pais.codigo}&indicador=${claveOrden}`;
   enlace.className = 'ranking__nombre';
   enlace.textContent = pais.nombre;
 
@@ -84,23 +72,7 @@ function crearFila(pais, posicion, claveOrden) {
 
   cabecera.append(pos, enlace, region);
 
-  const kpis = document.createElement('dl');
-  kpis.className = 'kpis';
-  Object.entries(INDICADORES).forEach(([clave, ind]) => {
-    const dato = pais.kpis[clave];
-    const caja = document.createElement('div');
-    caja.className = clave === claveOrden ? 'kpi kpi--activo' : 'kpi';
-    if (dato) caja.title = `${ind.nombre} (${dato.anio})`;
-
-    const etiqueta = document.createElement('dt');
-    etiqueta.textContent = ind.nombre;
-    const valor = document.createElement('dd');
-    valor.textContent = dato ? formatearValor(dato.valor, ind.unidad) : '—';
-    caja.append(etiqueta, valor);
-    kpis.append(caja);
-  });
-
-  item.append(cabecera, kpis);
+  item.append(cabecera, crearKpis(pais, claveOrden));
   return item;
 }
 
