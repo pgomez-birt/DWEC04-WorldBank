@@ -11,16 +11,18 @@ Entrega: **viernes 27/11/2026, 23:59** (Aula Virtual, un único PDF).
 - [x] Repo público `pgomez-birt/DWEC04-WorldBank` y GitHub Pages activo
 
 ## Día 2 — Martes 24/11: Ejercicio 1 (Resumen)
-- [ ] Ranking de países por indicador (PIB per cápita por defecto)
-- [ ] KPIs por país: PIB per cápita, población, esperanza de vida, crecimiento del PIB
-- [ ] Selector del indicador de ordenación y del número de países
-- [ ] Opcional: spinner de carga y mensaje de error en la interfaz
-- [ ] Clic en un país → `pages/detalle.html?pais=XXX`
+- [x] Ranking de países por indicador (PIB per cápita por defecto)
+- [x] KPIs por país: PIB per cápita, población, esperanza de vida, crecimiento del PIB
+- [x] Selector del indicador de ordenación y del número de países
+- [x] Opcional: spinner de carga y mensaje de error en la interfaz
+- [x] Clic en un país → `pages/detalle.html?pais=XXX`
 
 ## Día 3 — Miércoles 25/11: Ejercicio 2 (Visualización)
-- [ ] Gráfico de evolución (Chart.js) del país seleccionado
-- [ ] Interacción: cambiar indicador, rango de años y añadir país para comparar
-- [ ] Tooltips con el valor exacto
+- [x] Gráfico de evolución (Chart.js) del país seleccionado
+- [x] Interacción: cambiar país, indicador, rango de años y añadir/quitar hasta 3 países para comparar
+- [x] Tooltips con el valor exacto
+- [x] Tabla "Resumen del periodo" ordenable por columnas
+- [x] Estado de la vista guardado en la URL (enlace compartible)
 
 ## Día 4 — Jueves 26/11: Ejercicio 3 (Filtros) + diseño
 - [ ] Filtros: región, nivel de ingresos y búsqueda por nombre

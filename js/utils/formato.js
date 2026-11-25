@@ -17,3 +17,11 @@ export function formatearValor(valor, unidad) {
       return numero.format(valor);
   }
 }
+
+// Cambio en un periodo: puntos porcentuales si el indicador ya es un %
+export function formatearCambio(resumen, unidad) {
+  const cambio = unidad === '%' ? resumen.diferencia : resumen.variacion;
+  if (cambio === null || cambio === undefined) return '—';
+  const signo = cambio > 0 ? '+' : '';
+  return `${signo}${numero.format(cambio)} ${unidad === '%' ? 'p.p.' : '%'}`;
+}

@@ -18,13 +18,59 @@
 
   <main class="contenido">
     <h1>Evolución del país</h1>
-    <section id="detalle" aria-live="polite">
-      <p class="pendiente">Gráfico interactivo: en desarrollo (día 3).</p>
+    <p class="intro">Explora cómo ha cambiado cada indicador y compáralo con otros países.</p>
+
+    <section id="ficha" class="ficha" aria-live="polite"></section>
+
+    <form class="controles" id="controles-detalle" onsubmit="return false">
+      <label>País
+        <select id="pais" disabled></select>
+      </label>
+      <label>Indicador
+        <select id="indicador" disabled>
+          <option value="pibPerCapita" selected>PIB per cápita</option>
+          <option value="poblacion">Población</option>
+          <option value="esperanzaVida">Esperanza de vida</option>
+          <option value="crecimientoPib">Crecimiento del PIB</option>
+        </select>
+      </label>
+      <label>Desde
+        <select id="desde" disabled></select>
+      </label>
+      <label>Hasta
+        <select id="hasta" disabled></select>
+      </label>
+      <label>Comparar con
+        <span class="controles__fila">
+          <select id="comparar" disabled></select>
+          <button type="button" id="anadir" class="boton" disabled>Añadir</button>
+        </span>
+      </label>
+    </form>
+
+    <ul id="chips" class="chips" aria-label="Países en la comparación"></ul>
+
+    <section class="panel">
+      <div id="estado-grafico"></div>
+      <div class="grafico">
+        <canvas id="grafico" aria-label="Gráfico de evolución del indicador" role="img"></canvas>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Resumen del periodo</h2>
+      <p class="contador">Pulsa en la cabecera de una columna para ordenar la tabla.</p>
+      <div class="tabla-scroll">
+        <table id="tabla" class="tabla"></table>
+      </div>
     </section>
   </main>
 
   <footer class="pie">
     Datos: <a href="https://data.worldbank.org/" target="_blank" rel="noopener">World Bank Open Data</a>
   </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script type="module" src="../js/pages/detalle.js"></script>
 </body>
 </html>
